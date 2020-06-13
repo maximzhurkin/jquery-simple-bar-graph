@@ -1,10 +1,12 @@
 # jQuery Simple Bar Graph
 Very simple plugin for generating bar charts based on key/value data
 
-[Example](https://maximzhurkin.github.io/jquery-simple-bar-graph/)
+![](demo.gif)
+
+[Examples](https://maximzhurkin.github.io/jquery-simple-bar-graph/)
 
 ## Getting Started
-### 1. Include styles & scripts
+### Include styles & scripts
 ```html
 <head>
     <link href="jquery.simple-bar-graph.min.css" rel="stylesheet">
@@ -12,11 +14,11 @@ Very simple plugin for generating bar charts based on key/value data
     <script src="jquery.simple-bar-graph.min.js"></script>
 </head>
 ```
-### 2. Add HTML
+### Add HTML
 ```html
 <div id="graph"></div>
 ```
-### 3. Call plugin
+### Call plugin
 ```javascript
 $(document).ready(function() {
     $('#graph').simpleBarGraph({
@@ -30,5 +32,16 @@ $(document).ready(function() {
             { key: 'Sunday', value: 91 }
         ]
     });
+});
+```
+### Custom settings
+```javascript
+$('#graph').simpleBarGraph({
+    data: [],
+    rowsCount: 5,
+    height: '200px',
+    rowCaptionsWidth: '16px',
+    barsColor: '#C496CF',
+    popups: true
 });
 ```
