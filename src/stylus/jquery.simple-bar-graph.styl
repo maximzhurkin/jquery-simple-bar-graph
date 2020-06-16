@@ -22,15 +22,12 @@
 		border-top-left-radius 2px
 		border-top-right-radius 2px
 		transition height .2s ease-in-out
-		-webkit-backface-visibility hidden
-		-webkit-transform scale(1)
+		backface-visibility hidden
+		transform scale(1)
 		&--active
 			opacity 1
 			box-shadow 0 0 6px rgba(#000, .1)
 			z-index 10
-	for delay in (1..99)
-		&__column:nth-child({delay}) > &__bar
-			transition-delay (delay * 0.02s) !important
 	&__bar--active &__popup
 		display block
 	&__caption

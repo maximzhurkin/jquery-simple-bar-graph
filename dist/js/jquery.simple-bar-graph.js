@@ -3,15 +3,14 @@
   methods = {
     init: function(elements, options) {
       if ($(elements[0]).find('.simple-bar-graph').length) {
-        $.each($(elements[0]).find('.simple-bar-graph__bar'), function() {
+        $.each($(elements[0]).find('.simple-bar-graph__bar'), function(index) {
           $(this).css({
-            'height': '0%',
-            'transition-delay': '0s'
+            'height': '0%'
           });
         });
         setTimeout((function() {
           methods.render(elements, options);
-        }), $(elements[0]).find('.simple-bar-graph__bar').length * 30);
+        }), $(elements[0]).find('.simple-bar-graph__bar').length * options.delayAnimation + 100);
       } else {
         methods.render(elements, options);
       }
@@ -23,7 +22,7 @@
       rowsHeight = (100 / options.rowsCount).toFixed(3).slice(0, -1) + '%';
       rowStepValue = maxValue / options.rowsCount;
       rows = methods.getRows(options.rowsCount, rowsHeight, rowStepValue, maxValue);
-      columns = methods.getColumns(options.rowCaptionsWidth, options.height, options.data, maxValue, columnsWidth, options.barsColor, options.popups);
+      columns = methods.getColumns(options.rowCaptionsWidth, options.height, options.data, maxValue, columnsWidth, options.barsColor, options.popups, options.delayAnimation);
       graph = $('<div/>', {
         "class": 'simple-bar-graph'
       });
@@ -86,7 +85,7 @@
       })));
       return rows;
     },
-    getColumns: function(rowCaptionsWidth, height, data, maxValue, columnsWidth, barsColor, popups) {
+    getColumns: function(rowCaptionsWidth, height, data, maxValue, columnsWidth, barsColor, popups, delayAnimation) {
       var bar, column, columnHeight, columns, columnsIterator;
       columnsIterator = 0;
       columns = $('<div/>', {
@@ -107,7 +106,10 @@
         bar = $('<div/>', {
           "class": 'simple-bar-graph__bar',
           css: {
-            'height': '0%'
+            'height': '0%',
+            '-webkit-transition-delay': (columnsIterator * delayAnimation) + "ms",
+            '-moz-transition-delay': (columnsIterator * delayAnimation) + "ms",
+            'transition-delay': (columnsIterator * delayAnimation) + "ms"
           },
           'data-height': columnHeight
         });
@@ -139,7 +141,8 @@
       height: '300px',
       rowCaptionsWidth: '16px',
       barsColor: '',
-      popups: true
+      popups: true,
+      delayAnimation: 20
     }, options);
     methods.init(this, options);
   };

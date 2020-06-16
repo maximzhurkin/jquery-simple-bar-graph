@@ -3,15 +3,14 @@
 
 		init: (elements, options) ->
 			if $(elements[0]).find('.simple-bar-graph').length
-				$.each $(elements[0]).find('.simple-bar-graph__bar'), ->
+				$.each $(elements[0]).find('.simple-bar-graph__bar'), (index) ->
 					$(this).css
 						'height': '0%'
-						'transition-delay': '0s'
 					return
 				setTimeout (->
 					methods.render(elements, options)
 					return
-				), $(elements[0]).find('.simple-bar-graph__bar').length * 30
+				), $(elements[0]).find('.simple-bar-graph__bar').length * options.delayAnimation + 100
 			else
 				methods.render(elements, options)
 			return
@@ -23,7 +22,7 @@
 			rowStepValue = (maxValue / options.rowsCount);
 			# prepare html rows and columns
 			rows = methods.getRows(options.rowsCount, rowsHeight, rowStepValue, maxValue)
-			columns = methods.getColumns(options.rowCaptionsWidth, options.height, options.data, maxValue, columnsWidth, options.barsColor, options.popups)
+			columns = methods.getColumns(options.rowCaptionsWidth, options.height, options.data, maxValue, columnsWidth, options.barsColor, options.popups, options.delayAnimation)
 			# create main container
 			graph = $('<div/>', class: 'simple-bar-graph')
 			# append rows and columns
@@ -84,7 +83,7 @@
 							text: 0)))
 			return rows
 		
-		getColumns: (rowCaptionsWidth, height, data, maxValue, columnsWidth, barsColor, popups) ->
+		getColumns: (rowCaptionsWidth, height, data, maxValue, columnsWidth, barsColor, popups, delayAnimation) ->
 			columnsIterator = 0
 			# create columns container
 			columns = $('<div/>',
@@ -103,7 +102,11 @@
 				# create bar
 				bar = $('<div/>',
 					class: 'simple-bar-graph__bar'
-					css: 'height': '0%'
+					css:
+						'height': '0%'
+						'-webkit-transition-delay': "#{columnsIterator * delayAnimation}ms"
+						'-moz-transition-delay': "#{columnsIterator * delayAnimation}ms"
+						'transition-delay': "#{columnsIterator * delayAnimation}ms"
 					'data-height': columnHeight)
 				if barsColor then bar.css('background-color', barsColor)
 				# append popup to column
@@ -134,6 +137,7 @@
 			rowCaptionsWidth: '16px'
 			barsColor: ''
 			popups: true
+			delayAnimation: 20
 		}, options)
 		methods.init @, options
 		return

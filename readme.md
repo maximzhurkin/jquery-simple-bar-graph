@@ -42,6 +42,7 @@ $('#graph').simpleBarGraph({
     height: '200px',
     rowCaptionsWidth: '16px',
     barsColor: '#C496CF',
-    popups: true
+    popups: true,
+    delayAnimation: 15 //ms
 });
 ```

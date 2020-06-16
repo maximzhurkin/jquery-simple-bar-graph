@@ -57,5 +57,6 @@ $(document).ready ->
 			height: '200px'
 			rowCaptionsWidth: '24px'
 			barsColor: '#3D9970'
+			delayAnimation: 15
 		return
 	return
