@@ -27,9 +27,11 @@
           border-top-left-radius: 2px;
   -webkit-border-top-right-radius: 2px;
           border-top-right-radius: 2px;
-  -webkit-transition: height 0.2s ease-in-out !important;
-  -moz-transition: height 0.2s ease-in-out !important;
-  transition: height 0.2s ease-in-out !important;
+  -webkit-transition: height 0.2s ease-in-out;
+  -moz-transition: height 0.2s ease-in-out;
+  transition: height 0.2s ease-in-out;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: scale(1);
 }
 .simple-bar-graph__bar--active {
   opacity: 1;
